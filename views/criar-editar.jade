@@ -11,12 +11,11 @@ block content
         h2.ui.header Editar foto
     else
         h2.ui.header Nova foto
-    form.ui.form.segment.stacked(action='/save', method='POST')
+    form.ui.form.segment.stacked(action='/save', method='POST', enctype='multipart/form-data')
         .field
-            label Foto
-            .ui.right.labeled.icon.input
-                input(type='text', name='arquivo', placeholder='Escolha uma foto do seu computador...', disabled='')
-                i.upload.disk.icon(style='cursor: pointer')
+            label Escolha uma foto do seu computador
+            .ui.input
+                input(type='file', name='arquivo')
         .field
             label Descrição
             .ui.input
