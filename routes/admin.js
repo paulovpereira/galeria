@@ -12,10 +12,22 @@ router.get('/', function(req, res) {
 });
 
 /* GET Tela de adicionar uma nova foto */
-router.get('/nova', function(req, res) {
+router.get('/nova/', function(req, res) {
   res.render('criar-editar', {
     editando : false
   });
+});
+
+/* POST Salvar uma nova foto */
+router.post('/nova/save', function(req, res) {
+  if(req.files && req.files.arquivo) {
+    res.redirect('/admin/');
+  } else {
+    res.render('criar-editar', {
+      editando : false,
+      erroArquivoObrigatorio: true
+    });
+  }
 });
 
 module.exports = router;

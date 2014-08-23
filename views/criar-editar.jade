@@ -11,11 +11,14 @@ block content
         h2.ui.header Editar foto
     else
         h2.ui.header Nova foto
-    form.ui.form.segment.stacked(action='/save', method='POST', enctype='multipart/form-data')
+    form.ui.form.segment.stacked(action='save', method='POST', enctype='multipart/form-data')
         .field
             label Escolha uma foto do seu computador
-            .ui.input
-                input(type='file', name='arquivo', accept='image/*')
+            .ui.icon.input.fileUpload
+                input#nome-arquivo(type='text', disabled='', value=nomeArquivo)
+                i.teal.inverted.upload.disk.icon
+                input#arquivo-foto.upload-input(type='file', name='arquivo', accept='image/*')
+
         .field
             label Descrição
             .ui.input
@@ -23,3 +26,5 @@ block content
         .ui.buttons
             a.small.ui.button(href='/admin/') Cancelar
             button.small.ui.teal.submit.button(type='submit') Salvar
+
+    script(type='text/javascript' src='/javascripts/admin/criar-editar.js')
