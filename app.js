@@ -10,6 +10,7 @@ var routes = require('./routes/index');
 var admin = require('./routes/admin');
 
 var app = express();
+app.enable('strict routing');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,11 +20,10 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(multer({ dest: './uploads/'}));
+app.use(multer({ dest: './public/images/fotos/'}));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', routes);
 app.use('/admin', admin);
 

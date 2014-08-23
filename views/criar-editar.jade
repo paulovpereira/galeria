@@ -11,7 +11,10 @@ block content
         h2.ui.header Editar foto
     else
         h2.ui.header Nova foto
-    form.ui.form.segment.stacked(action='save', method='POST', enctype='multipart/form-data')
+    if erroArquivo
+        .ui.red.inverted.segment
+            p Aconteceu um erro inesperado no servidor.
+    form#form-foto.ui.form.segment.stacked(action='save', method='POST', enctype='multipart/form-data')
         .field
             label Escolha uma foto do seu computador
             .ui.icon.input.fileUpload

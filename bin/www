@@ -7,7 +7,7 @@ app.set('port', process.env.PORT || 3000);
 
 db
   .sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .complete(function(err) {
     if (err) {
       throw err[0];
