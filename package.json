@@ -15,7 +15,6 @@
     "lodash": "^2.4.1",
     "morgan": "~1.0.0",
     "multer": "^0.1.4",
-    "multiparty": "^3.3.2",
     "mysql": "^2.4.2",
     "sequelize": "^1.7.9",
     "static-favicon": "~1.0.0"
