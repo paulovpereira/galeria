@@ -70,7 +70,7 @@ $(document).ready(function () {
     if (timeoutRunning) {
       clearTimeout(timeoutRunning);
     }
-    timeoutRunning = setTimeout(recalcularTamanhos(), 400);
+    timeoutRunning = setTimeout(recalcularTamanhos, 100);
   });
 
   $('#nav-esq').click(function () {

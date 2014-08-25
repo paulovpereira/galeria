@@ -10,22 +10,35 @@ router.get('/', function(req, res) {
   });
 });
 
+function removerArquivoDisco(caminho) {
+  try {
+    fs.unlinkSync(caminho);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 /* POST remover uma foto */
 router.post('/remover/:id', function(req, res) {
   if(req.params.id) {
     //Recupera a foto a partir do paramêtro id
     db.Foto.find(req.params.id).success(function(foto) {
+      if(!foto) {
+        req.flash('error', 'Foto não encontrada.');
+        res.redirect('/admin/');
+        return;
+      }
       var caminhoFoto = foto.caminho;
       //Delete no banco de dados
       foto.destroy().success(function() {
         //Remove o arquivo depois de remover o registro no banco
-        fs.unlinkSync('./public/' + caminhoFoto);
+        removerArquivoDisco('./public/' + caminhoFoto);
         req.flash('success', 'Foto removida com sucesso.');
         res.redirect('/admin/');
       });
     });
   } else {
-    res.send(400, 'Nenhum identificador de foto encontrado');
+    res.status(400).send('Nenhum identificador de foto encontrado');
   }
 });
 
@@ -37,20 +50,20 @@ router.get('/nova/', function(req, res) {
 /* POST Salvar uma nova foto */
 router.post('/nova/save', function(req, res) {
   if(req.files && req.files.arquivo) {
-    var relativePathImages = req.files.arquivo.path.split('public/')[1];
+    var caminhoRelativoImagem = req.files.arquivo.path.split('public/')[1];
     db.Foto.create({
-      caminho: relativePathImages,
+      caminho: caminhoRelativoImagem,
       descricao: req.body.descricao || ''
     }).success(function() {
       req.flash('success', 'Foto salva com sucesso.');
       res.redirect('/admin/');
     }).error(function(error) {
       console.log(error);
-      fs.unlinkSync(req.files.arquivo.path);
-      res.send(500, error);
+      removerArquivoDisco(req.files.arquivo.path);
+      res.status(500).send(error);
     });
   } else {
-    res.send(400, 'Nenhum arquivo de foto encontrado');
+    res.status(400).send('Nenhum arquivo de foto encontrado');
   }
 });
 
@@ -61,11 +74,12 @@ router.get('/editar/:id/', function(req, res) {
       if(!foto) {
         req.flash('error', 'Foto não encontrada.');
         res.redirect('/admin/');
+        return;
       }
       res.render('editar', { foto: foto });
     });
   } else {
-    res.send(400, 'Nenhum identificador de foto encontrado');
+    res.status(400).send('Nenhum identificador de foto encontrado');
   }
 });
 
@@ -78,6 +92,7 @@ router.post('/editar/:id/save', function(req, res) {
       if(!foto) {
         req.flash('error', 'Foto não encontrada.');
         res.redirect('/admin/');
+        return;
       }
       caminhoFotoOriginal = './public/' + foto.caminho;
       //Atualiza o caminho da foto somente se foi realizado um novo upload de arquivo
@@ -87,14 +102,14 @@ router.post('/editar/:id/save', function(req, res) {
       foto.updateAttributes(edicao).success(function() {
         //Caso tenha sido escolhido outro arquivo, remove o anterior
         if(edicao.caminho) {
-          fs.unlinkSync(caminhoFotoOriginal);
+          removerArquivoDisco(caminhoFotoOriginal);
         }
         req.flash('success', 'Foto salva com sucesso.');
         res.redirect('/admin/');
       })
     });
   } else {
-    res.send(400, 'Nenhum identificador de foto encontrado');
+    res.status(400).send('Nenhum identificador de foto encontrado');
   }
 });
 
