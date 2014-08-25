@@ -1,6 +1,14 @@
 extends layout
 
 block content
-    h1= message
-    h2= error.status
-    pre #{error.stack}
+    .ui.teal.menu
+        a.item(href='/')
+            i.photo.icon
+            span Galeria
+        a.item(href='/admin/')
+            i.settings.icon
+            span Administração
+    .ui.error.message
+        h1.ui.header= message
+        h2.ui.header= error.status
+        pre #{error.stack}

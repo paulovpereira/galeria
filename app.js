@@ -4,6 +4,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('express-flash');
 var multer  = require('multer');
 
 var routes = require('./routes/index');
@@ -11,6 +13,9 @@ var admin = require('./routes/admin');
 
 var app = express();
 app.enable('strict routing');
+app.use(cookieParser());
+app.use(session({ secret: 'Galeria', resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }}));
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,7 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(multer({ dest: './public/images/fotos/'}));
 
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/admin', admin);
@@ -57,6 +61,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;

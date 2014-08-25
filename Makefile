@@ -6,7 +6,10 @@ npm:
 bower:
 	$(NODE_BIN)/bower install
 
-node:
+server_dev:
 	node bin/www
 
-run: npm bower node
+server_prod:
+	NODE_ENV=production node bin/www
+
+run: npm bower server_prod

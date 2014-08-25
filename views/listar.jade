@@ -10,6 +10,12 @@ block content
     h2.ui.header Administração
         .sub.header Adicione, edite e remova as suas fotos
     .ui.stacked.segment
+        if messages.success && messages.success.length > 0
+            each sucesso in messages.success
+                .ui.success.message=sucesso
+        if messages.error && messages.error.length > 0
+            each error in messages.error
+                .ui.error.message=error
         a.small.ui.teal.labeled.icon.button(href='nova/')
             i.add.icon
             span Nova foto
@@ -25,8 +31,11 @@ block content
                     each foto in fotos
                         tr
                             td= foto.descricao
-                            td= foto.caminho
-                            td= foto.updatedAt
                             td
-                                a.tiny.ui.teal.icon.button(href = 'editar/#{foto.id}') Editar
-                                a.tiny.ui.red.icon.button(href = 'editar/#{foto.id}') Remover
+                                a(href='/#{foto.caminho}')= foto.caminho
+                            td= foto.createdAt
+                            td
+                                form(action='remover/#{foto.id}', method='POST')
+                                    .ui.buttons
+                                        a.tiny.ui.teal.button(href='editar/#{foto.id}/') Editar
+                                        button.tiny.ui.red.button(type='submit') Remover

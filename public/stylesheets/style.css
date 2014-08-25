@@ -1,5 +1,5 @@
 body {
-    padding: 50px;
+    margin: 0 15px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -21,7 +21,57 @@ a {
     margin: 0;
     padding: 0;
     font-size: 20px;
-    filter: alpha(opacity=0);
     border-radius: 0;
     height: 100%;
+}
+
+.gallery-wrapper {
+    position: absolute;
+    top: 160px;
+    left: 15px;
+    bottom: 15px;
+    min-height: 200px;
+    right: 15px;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    cursor: pointer;
+}
+
+.desabilitado {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.photos-wrapper {
+    position: relative;
+    left: 0;
+    transition: left 500ms ease-in;
+}
+
+.photos-wrapper-outer {
+    margin-left: 100px;
+    margin-right: 100px;
+    overflow: hidden;
+}
+
+.photo-wrapper {
+    float: left;
+    height: auto;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.align-vertical-helper {
+    vertical-align: middle;
+    height: 100%;
+    display: inline-block;
+}
+
+.gallery-photo {
+    vertical-align: middle;
+
 }
