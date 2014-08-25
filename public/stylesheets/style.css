@@ -1,6 +1,6 @@
 body {
     margin: 0 15px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 a {
@@ -23,6 +23,10 @@ a {
     font-size: 20px;
     border-radius: 0;
     height: 100%;
+}
+
+.link-foto {
+  word-wrap: break-word;
 }
 
 .gallery-wrapper {

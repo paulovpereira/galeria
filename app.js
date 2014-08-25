@@ -25,6 +25,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+//Configuração da pasta onde será realizado o upload das fotos
 app.use(multer({ dest: './public/images/fotos/'}));
 
 app.use(express.static(path.join(__dirname, 'public')));

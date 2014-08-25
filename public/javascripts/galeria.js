@@ -7,6 +7,10 @@ $(document).ready(function () {
       fotoSelecionada = 0,
       numeroFotos;
 
+  function calculaAspectoIdeal(alturaMax, alturaImagem, larguraMax, larguraImagem) {
+    return Math.min(alturaMax / alturaImagem, larguraMax / larguraImagem);
+  }
+
   function recalcularTamanhos () {
     var galeria = $('.gallery-wrapper'),
         wrapperGaleria = $('.photos-wrapper-outer'),
@@ -29,14 +33,15 @@ $(document).ready(function () {
 
     fotos.css('width', larguraMaximoGaleria);
     fotos.css('height', alturaMaximaFotos);
-    fotos.find('img').each(function () {
+    fotos.find('img').each(function redimensionarImg() {
       var imagem = $(this),
-          copiaImagem = new Image();
+        copiaImagem = new Image();
       copiaImagem.src = imagem.attr("src");
       copiaImagem.onload = function() {
-        var proporcaoAltura =  alturaMaximaFotos / this.height,
-          proporcaoLargura = larguraMaximoGaleria / this.width,
-          proporcaoFinal = Math.min(proporcaoAltura, proporcaoLargura);
+        var proporcaoFinal = calculaAspectoIdeal(alturaMaximaFotos, this.height,
+          larguraMaximoGaleria, this.width);
+        imagem.css('max-height', this.height);
+        imagem.css('max-width', this.width);
         imagem.css('width', proporcaoFinal * this.width);
         imagem.css('height', proporcaoFinal * this.height);
       };

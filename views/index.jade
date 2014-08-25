@@ -20,7 +20,8 @@ block content
                     each foto in fotos
                         .photo-wrapper
                             span.align-vertical-helper
-                            img.gallery-photo(src=foto.caminho)
+                            a(href='#{foto.caminho}')
+                                img.gallery-photo(src=foto.caminho)
                 .photo-number
                     span#foto-atual
                     span(style='margin: 0 5px') de
