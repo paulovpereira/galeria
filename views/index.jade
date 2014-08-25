@@ -11,16 +11,16 @@ block content
     h2.ui.header Galeria de fotos
         .sub.header Visualize todas as suas fotos
 
-
-    .gallery-wrapper
-        img#nav-esq.gallery-nav.desabilitado(src='/images/icons/seta_esquerda.jpg',style='left: 0;')
-        img#nav-dir.gallery-nav(src='/images/icons/seta_direita.jpg',style='right: 0;')
-        .photos-wrapper-outer
-            .photos-wrapper
-                each foto in fotos
-                    .photo-wrapper
-                        span.align-vertical-helper
-                        img.gallery-photo(src=foto.caminho)
-
-
+    if fotos && fotos.length > 0
+        .gallery-wrapper
+            img#nav-esq.gallery-nav(src='/images/icons/seta_esquerda.jpg',style='left: 0;')
+            img#nav-dir.gallery-nav(src='/images/icons/seta_direita.jpg',style='right: 0;')
+            .photos-wrapper-outer
+                .photos-wrapper
+                    each foto in fotos
+                        .photo-wrapper
+                            span.align-vertical-helper
+                            img.gallery-photo(src=foto.caminho)
+    else
+        .ui.warning.message Nenhuma foto encontrada em sua galeria.
     script(type='text/javascript' src='/javascripts/galeria.js')

@@ -42,7 +42,23 @@ $(document).ready(function () {
     });
   }
 
-  recalcularTamanhos();
+  function navegarFotoSelecionada() {
+    var wrapperFotos = $('.photos-wrapper');
+    wrapperFotos.css('left', -(fotoSelecionada * larguraMaximoGaleria));
+  }
+
+  function desabilitarNavEsquerda() {
+    if(fotoSelecionada === 0) {
+      $('#nav-esq').addClass('desabilitado');
+    }
+  }
+
+  function desabilitarNavDireita() {
+    if (fotoSelecionada === numeroFotos - 1) {
+      $('#nav-dir').addClass('desabilitado');
+    }
+  }
+
   $(window).resize(function () {
     if (timeoutRunning) {
       clearTimeout(timeoutRunning);
@@ -50,19 +66,11 @@ $(document).ready(function () {
     timeoutRunning = setTimeout(recalcularTamanhos(), 400);
   });
 
-  function navegarFotoSelecionada() {
-    var wrapperFotos = $('.photos-wrapper');
-    wrapperFotos.css('left', -(fotoSelecionada * larguraMaximoGaleria));
-  }
-
   $('#nav-esq').click(function () {
     if(!$(this).hasClass('desabilitado')) {
       fotoSelecionada--;
       navegarFotoSelecionada();
-
-      if(fotoSelecionada === 0) {
-        $(this).addClass('desabilitado');
-      }
+      desabilitarNavEsquerda();
       $('#nav-dir').removeClass('desabilitado');
     }
   });
@@ -71,11 +79,12 @@ $(document).ready(function () {
     if(!$(this).hasClass('desabilitado')) {
       fotoSelecionada++;
       navegarFotoSelecionada();
-
-      if (fotoSelecionada === numeroFotos - 1) {
-        $(this).addClass('desabilitado');
-      }
+      desabilitarNavDireita();
       $('#nav-esq').removeClass('desabilitado');
     }
   });
+
+  recalcularTamanhos();
+  desabilitarNavEsquerda();
+  desabilitarNavDireita();
 });

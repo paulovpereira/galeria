@@ -12,4 +12,7 @@ server_dev:
 server_prod:
 	NODE_ENV=production node bin/www
 
-run: npm bower server_prod
+mysql:
+	echo 'CREATE DATABASE IF NOT EXISTS galeria_fotos' | mysql -u root
+
+run: npm bower mysql server_dev

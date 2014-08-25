@@ -12,7 +12,7 @@ db
     if (err) {
       throw err[0];
     } else {
-      var server = app.listen(app.get('port'), function() {
+      var server = app.listen(app.get('port'), '0.0.0.0', function() {
         console.log('Express server listening on port ' + server.address().port);
       });
     }
