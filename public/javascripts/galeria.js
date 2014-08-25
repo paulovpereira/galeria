@@ -2,6 +2,7 @@
 $(document).ready(function () {
   var timeoutRunning = 0;
   var LARGURA_BOTOES_NAV = 200,
+      ALTURA_CONTADOR_FOTOS = 30,
       larguraMaximoGaleria,
       fotoSelecionada = 0,
       numeroFotos;
@@ -11,29 +12,29 @@ $(document).ready(function () {
         wrapperGaleria = $('.photos-wrapper-outer'),
         wrapperFotos = $('.photos-wrapper'),
         fotos = $('.photo-wrapper'),
-        alturaMaximaGaleria = galeria.height();
+        alturaMaximaGaleria = galeria.height(),
+        alturaMaximaFotos = alturaMaximaGaleria - ALTURA_CONTADOR_FOTOS;
 
     numeroFotos = fotos.length;
+    $('#numero-fotos').html(numeroFotos);
     larguraMaximoGaleria = galeria.width() - LARGURA_BOTOES_NAV;
-
-    var larguraWrapperFotos = larguraMaximoGaleria * numeroFotos;
-    wrapperFotos.css('width', larguraWrapperFotos);
-    wrapperFotos.css('height', alturaMaximaGaleria);
-    wrapperFotos.css('transition', '');
-    navegarFotoSelecionada();
-    wrapperFotos.css('transition', 'left 500ms ease-in');
 
     wrapperGaleria.css('width', larguraMaximoGaleria);
     wrapperGaleria.css('height', alturaMaximaGaleria);
 
+    var larguraWrapperFotos = larguraMaximoGaleria * numeroFotos;
+    wrapperFotos.css('width', larguraWrapperFotos);
+    wrapperFotos.css('height', alturaMaximaFotos);
+    navegarFotoSelecionada();
+
     fotos.css('width', larguraMaximoGaleria);
-    fotos.css('height', alturaMaximaGaleria);
+    fotos.css('height', alturaMaximaFotos);
     fotos.find('img').each(function () {
       var imagem = $(this),
           copiaImagem = new Image();
       copiaImagem.src = imagem.attr("src");
       copiaImagem.onload = function() {
-        var proporcaoAltura =  alturaMaximaGaleria / this.height,
+        var proporcaoAltura =  alturaMaximaFotos / this.height,
           proporcaoLargura = larguraMaximoGaleria / this.width,
           proporcaoFinal = Math.min(proporcaoAltura, proporcaoLargura);
         imagem.css('width', proporcaoFinal * this.width);
@@ -45,6 +46,7 @@ $(document).ready(function () {
   function navegarFotoSelecionada() {
     var wrapperFotos = $('.photos-wrapper');
     wrapperFotos.css('left', -(fotoSelecionada * larguraMaximoGaleria));
+    $('#foto-atual').html(fotoSelecionada + 1);
   }
 
   function desabilitarNavEsquerda() {

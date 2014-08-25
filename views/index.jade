@@ -21,6 +21,10 @@ block content
                         .photo-wrapper
                             span.align-vertical-helper
                             img.gallery-photo(src=foto.caminho)
+                .photo-number
+                    span#foto-atual
+                    span(style='margin: 0 5px') de
+                    span#numero-fotos
     else
         .ui.warning.message Nenhuma foto encontrada em sua galeria.
     script(type='text/javascript' src='/javascripts/galeria.js')

@@ -10,10 +10,6 @@ block content
 
     h2.ui.header Editar foto
 
-    if erroArquivo
-        .ui.red.inverted.segment
-            p Aconteceu um erro inesperado no servidor.
-
     form#form-foto-editando.ui.form.segment.stacked(action='save', method='POST', enctype='multipart/form-data')
         .field
             label Escolha uma foto do seu computador

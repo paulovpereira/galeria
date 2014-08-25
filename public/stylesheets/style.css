@@ -29,7 +29,7 @@ a {
     position: absolute;
     top: 160px;
     left: 15px;
-    bottom: 15px;
+    bottom: 0;
     min-height: 200px;
     right: 15px;
 }
@@ -73,5 +73,10 @@ a {
 
 .gallery-photo {
     vertical-align: middle;
+}
 
+.photo-number {
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
 }
